@@ -1,0 +1,24 @@
+{
+  "name": "BattleBots",
+  "homepage": "https://github.com/nss-day-cohort-15/mastery-exercise-modern-javascript-MattKraatz",
+  "authors": [
+    "Matt Kraatz <matt.kraatz@gmail.com>"
+  ],
+  "description": "basic robot fighting game to practice object composition",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "jasmine#^2.4.1"
+  }
+}
