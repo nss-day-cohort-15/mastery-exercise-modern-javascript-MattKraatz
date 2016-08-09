@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       all: {
         src: ['./**/*.js', '!./node_modules/**/*', '!./bower_components/**/*'],
         options: {
-          jshintrc: true
+          esversion: 6
         }
       }
     },
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         src: ['./**/*.json', '!./node_modules/**/*', '!./bower_components/**/*'],
         options: {
           format: true,
-          indent: 2
+          indent: 2,
         }
       }
     },
