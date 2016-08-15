@@ -1,0 +1,26 @@
+{
+  "optimusPrime": {
+    "img": "img/optimusPrime.jpg",
+    "name": "Optimus Prime"
+  },
+  "megatron": {
+    "img": "img/megatron.jpg",
+    "name": "Megatron"
+  },
+  "megazord": {
+    "img": "img/megazord.jpg",
+    "name": "Megazord"
+  },
+  "alpha5": {
+    "img": "img/alpha5.jpg",
+    "name": "Alpha 5"
+  },
+  "bob": {
+    "img": "img/bob.jpg",
+    "name": "Bob"
+  },
+  "megabyte": {
+    "img": "img/megabyte.jpg",
+    "name": "Megabyte"
+  }
+}

@@ -1,48 +1,69 @@
-// Original Robot prototype
-let Robot = function() {
-  this.name = "";
-};
+// Global variables to hold list of all fighters, and user-selected fighter 1 and 2
+let fighters = {};
+let fighter1 = {};
+let fighter2 = {};
 
-Robot.prototype.setMaxHealth = function(maxHealth,minHealth){
-  this.maxHealth = Math.ceil(Math.random() * (maxHealth - minHealth) + minHealth) || 0;
-};
+// XML call to load fighters
+var data = $.getJSON("characters.json");
+data.then(Main).catch(console.error);
 
-Robot.prototype.setMaxDamage = function(maxDamage,minDamage){
-  this.maxDamage = Math.ceil(Math.random() * (maxDamage - minDamage) + minDamage) || 0;
-};
+function Main() {
+  // Original Robot prototype
+  let Robot = function() {
+    this.name = "";
+  };
 
-// Declaring robot types and generating prototypes
-let Transformer = function(){};
-let Ranger = function(){};
-let Reboot = function(){};
+  // Adding properties to Robot prototype for determining health and damage
+  Robot.prototype.setMaxHealth = function(maxHealth,minHealth){
+    this.maxHealth = Math.ceil(Math.random() * (maxHealth - minHealth) + minHealth) || 0;
+  };
 
-Transformer.prototype = new Robot();
-Transformer.prototype.type = "transformer";
-Ranger.prototype = new Robot();
-Ranger.prototype.type = "ranger";
-Reboot.prototype = new Robot();
-Reboot.prototype.type = "reboot";
+  Robot.prototype.setMaxDamage = function(maxDamage,minDamage){
+    this.maxDamage = Math.ceil(Math.random() * (maxDamage - minDamage) + minDamage) || 0;
+  };
 
-// Declaring robot model functions and generating prototypes
+  // Declaring robot types and generating prototypes
+  let Transformer = function(){};
+  let Ranger = function(){};
+  let Reboot = function(){};
 
-let types = {
-  optimusPrime() {},
-  megatron() {},
-  megazord() {},
-  alpha5() {},
-  bob() {},
-  megabyte() {}
+  Transformer.prototype = new Robot();
+  Transformer.prototype.type = "transformer";
+  Ranger.prototype = new Robot();
+  Ranger.prototype.type = "ranger";
+  Reboot.prototype = new Robot();
+  Reboot.prototype.type = "reboot";
+
+  // Declaring robot type functions and prototypes
+  fighters = data.responseJSON;
+
+  fighters.optimusPrime.prototype = new Transformer();
+  fighters.megatron.prototype = new Transformer();
+  fighters.megazord.prototype = new Ranger();
+  fighters.alpha5.prototype = new Ranger();
+  fighters.bob.prototype = new Reboot();
+  fighters.megabyte.prototype = new Reboot();
+
+  // Assigning Health and Damage properties with more randomizers
+  for (var f in fighters) {
+    let x = Math.ceil(Math.random() * 10);
+    let y = Math.ceil(Math.random() * 4);
+    let maxH = 200 + (2 * x);
+    let minH = 150 - (1 * x);
+    let maxD = 75 + (2 * y);
+    let minD = 50 + (1 * y);
+    fighters[f].prototype.setMaxHealth.call(fighters[f],maxH,minH);
+    fighters[f].prototype.setMaxDamage.call(fighters[f],maxD,minD);
+    selectionPrinter(fighters[f]);
+  }
+
+  // Function to print each fighter to the select elements on the DOM
+  function selectionPrinter(option) {
+    $("#player1").append(`
+      <option>${option.name}</option>
+    `)
+    $("#player2").append(`
+      <option>${option.name}</option>
+    `)
+  }
 }
-
-types.optimusPrime.prototype = new Transformer();
-types.megatron.prototype = new Transformer();
-types.megazord.prototype = new Ranger();
-types.alpha5.prototype = new Ranger();
-types.bob.prototype = new Reboot();
-types.megabyte.prototype = new Reboot();
-
-for (t in types) {
-  types[t].prototype.setMaxHealth.call(types[t],200,150);
-  types[t].prototype.setMaxDamage.call(types[t],60,45);
-}
-
